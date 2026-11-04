@@ -1,3 +1,5 @@
+![Desafio Técnico // SRE — Reliability Engineer](docs/cover.jpg)
+
 # Desafio SRE — HOUS3 DIGITAL
 
 Este repositório contém o código-base de um serviço em Node.js com TypeScript. O seu objetivo é evoluir a observabilidade dessa aplicação, construindo um ambiente completo de monitoramento e rastreamento.
