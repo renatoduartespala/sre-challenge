@@ -1,2 +1,13 @@
 dist
 node_modules
+
+.env
+.env.*
+*.log
+.DS_Store
+.idea/
+.vscode/
+
+prometheus-data/
+grafana-data/
+loki-data/

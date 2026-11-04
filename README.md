@@ -1,55 +1,48 @@
-![Desafio Técnico // SRE — Reliability Engineer](docs/cover.jpg)
+![Desafio técnico — Reliability Engineer](assets/cover.jpg)
 
-# Desafio SRE — HOUS3 DIGITAL
+# Desafio — Reliability Engineer
 
-Este repositório contém o código-base de um serviço em Node.js com TypeScript. O seu objetivo é evoluir a observabilidade dessa aplicação, construindo um ambiente completo de monitoramento e rastreamento.
+Repositório do desafio técnico da vaga de Reliability Engineer na Hous3.
 
-## Visão Geral
+O desafio avalia três coisas:
 
-Você deve provisionar localmente (ou em um ambiente de sua preferência) a seguinte stack de observabilidade:
+1. **Como a pessoa instrumenta o serviço.** Métrica, log e trace no fluxo de pagamento, correlacionados, com o contrato da API intacto.
+2. **A linha de raciocínio.** Cada sinal nasce de uma pergunta operacional. O que foi medido, o que ficou de fora e o trade-off estão escritos.
+3. **Como entrega a operação.** A stack sobe, o painel responde uma pergunta e o texto serve para outra pessoa rodar, achar um erro e seguir um trace.
 
-- Prometheus
-- OpenTelemetry Collector
-- Grafana
-- Jaeger
-- Grafana Loki *(diferencial / plus)*
+Painel sem sinal correlacionado não sustenta nenhuma das três. Stack no ar sem dizer o que olhar pesa contra.
 
-A aplicação expõe rotas REST simplificadas que simulam um contexto de pagamentos. O desafio está em instrumentar o serviço, coletar e correlacionar métricas, logs e traces, e transformar esses sinais em painéis úteis para operação e troubleshooting.
+## Terreno técnico
 
-## Objetivos Obrigatórios
+As habilidades da vaga são o terreno do teste, não uma lista para marcar.
 
-1. **Instrumentação da aplicação**
-   - Implementar tracing distribuído com OpenTelemetry (HTTP server, handlers e chamadas internas).
-   - Expor métricas relevantes (latência, throughput, erros, payloads) em um endpoint compatível com Prometheus ou via OTLP.
-   - Enviar logs estruturados e correlacionados com traces (trace/span id).
-2. **Stack de observabilidade**
-   - Subir Prometheus, OpenTelemetry Collector, Grafana e Jaeger.
-   - Configurar o Collector para receber dados da aplicação e distribuir para os destinos apropriados (Prometheus, Jaeger, Grafana, Loki).
-   - Garantir retenção mínima e documentação de como os serviços são iniciados.
-3. **Painéis e exploração**
-   - Criar pelo menos 2 dashboards no Grafana com foco em métricas e traces (por exemplo: visão de saúde do serviço, jornada de pagamento, erros por endpoint).
-   - Capturar pelo menos um fluxo de trace end-to-end no Jaeger e explicar como reproduzir.
-   - Caso utilize Grafana Loki, demonstrar como os logs se correlacionam com traces e métricas.
-4. **Documentação**
-   - Registrar no README (ou em um arquivo separado) instruções de como rodar a stack, acessar os painéis e validar as métricas/traces/logs.
-   - Incluir decisões técnicas, trade-offs e passos futuros sugeridos.
+| Terreno | Onde aparece na condução |
+| --- | --- |
+| Serviço | API de pagamentos em Node.js e TypeScript: rotas, latência artificial e o log que já existe |
+| Observabilidade | OpenTelemetry, métrica compatível com Prometheus, log com trace id; Prometheus, Collector, Grafana e Jaeger |
 
-## Bônus (opcional, mas valorizado)
+O detalhe de cada terreno está na pasta correspondente. A nota está em [`docs/rubrica.md`](docs/rubrica.md). Quem corrige a entrega segue [`docs/avaliacao.md`](docs/avaliacao.md).
 
-- Configuração do Grafana Loki e painéis de logs.
-- Geração de alertas básicos (Prometheus Alertmanager ou Grafana Alerting).
-- Scripts de carga (k6, artillery, autocannon etc.) para demonstrar gráficos em movimento.
-- Pipelines CI/CD ou automações para iniciar o ambiente.
+## Como o desafio funciona
 
-## Como avaliar o desafio
+1. Ler o [briefing](docs/briefing.md) e as [regras de engajamento](docs/regras-de-engajamento.md).
+2. Confirmar o serviço, a stack e o canal de dúvida em [`docs/escopo.md`](docs/escopo.md). Fora dessa lista, não há trabalho.
+3. Instrumentar a aplicação e subir a stack localmente.
+4. Entregar duas peças:
+   - [`entregas/relatorio.md`](entregas/relatorio.md), a partir de [`docs/template-relatorio.md`](docs/template-relatorio.md) — o documento de operação.
+   - [`entregas/notas.md`](entregas/notas.md), a partir de [`docs/template-notas.md`](docs/template-notas.md) — o caderno, com a ordem das decisões.
+5. Evidência em `entregas/evidencias/`: painel, trace e log do mesmo fluxo.
 
-Você pode disponibilizar sua solução:
+## Layout
 
-- **Forms de solução** com o código, configurações e documentação.
+```
+docs/               briefing, regras, escopo, rubrica, avaliação e templates
+servico/            terreno da API de pagamentos
+observabilidade/    terreno de sinal e de stack
+entregas/           relatório, notas e evidências
+src/                código-base do serviço
+```
 
-## Informações de Contato
+## O que não entra no git
 
-Em caso de dúvidas, entre em contato com [Pedro Cardozo](https://www.linkedin.com/in/pedrocardoz0/). Durante a entrevista técnica falaremos sobre suas decisões e o que faria diferente em produção.
-
-Boa sorte!
-
+`.env`, volume de Prometheus, Grafana e Loki, e segredo de painel. O [`.gitignore`](.gitignore) já cobre o caso comum. Evidência mostra o sinal e omite segredo.
